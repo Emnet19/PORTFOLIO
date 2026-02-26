@@ -346,14 +346,281 @@
 
 
 
+// import React, { useState, useEffect } from 'react';
+// import { motion } from 'framer-motion';
+// import { Icon } from '@iconify/react';
+
+// function Nav() {
+//   const [activeSection, setActiveSection] = useState('home');
+//   const [hoveredItem, setHoveredItem] = useState(null);
+//   const [scrolled, setScrolled] = useState(false);
+
+//   const navItems = [
+//     { id: 'home', label: 'Home', icon: 'ph:planet-duotone', symbol: '🌌' },
+//     { id: 'about', label: 'About', icon: 'ph:sparkle-duotone', symbol: '✨' },
+//     { id: 'skills', label: 'Skills', icon: 'ph:magic-wand-duotone', symbol: '⚡' },
+//     { id: 'projects', label: 'Projects', icon: 'ph:stack-duotone', symbol: '🎯' },
+//     { id: 'certificates', label: 'Certificates', icon: 'ph:star-four-duotone', symbol: '🏆' },
+//     { id: 'services', label: 'Services', icon: 'ph:gear-six-duotone', symbol: '⚙️' },
+//     { id: 'contact', label: 'Contact', icon: 'ph:paper-plane-duotone', symbol: '✉️' },
+//   ];
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       setScrolled(window.scrollY > 50);
+      
+//       const sections = navItems.map(item => item.id);
+//       for (const section of sections) {
+//         const element = document.getElementById(section);
+//         if (element) {
+//           const rect = element.getBoundingClientRect();
+//           if (rect.top <= 150 && rect.bottom >= 150) {
+//             setActiveSection(section);
+//             break;
+//           }
+//         }
+//       }
+//     };
+
+//     window.addEventListener('scroll', handleScroll);
+//     return () => window.removeEventListener('scroll', handleScroll);
+//   }, []);
+
+//   const scrollToSection = (sectionId) => {
+//     const element = document.getElementById(sectionId);
+//     if (element) {
+//       element.scrollIntoView({ behavior: 'smooth' });
+//       setActiveSection(sectionId);
+//     }
+//   };
+
+//   return (
+//     <>
+//       {/* Floating artistic navbar */}
+//       <motion.div 
+//         initial={{ opacity: 0, y: -20 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+//         className="fixed top-6 left-1/2 -translate-x-1/2 z-50"
+//       >
+//         {/* Main container with artistic design */}
+//         <div className="relative">
+//           {/* Animated gradient orbs background */}
+//           <motion.div
+//             animate={{
+//               rotate: [0, 360],
+//               scale: [1, 1.2, 1],
+//             }}
+//             transition={{
+//               duration: 20,
+//               repeat: Infinity,
+//               ease: "linear"
+//             }}
+//             className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl"
+//           />
+          
+//           {/* Main glass panel with unique shape */}
+//           <div className="relative backdrop-blur-xl rounded-[2rem] border border-white/10 overflow-hidden">
+//             {/* Animated flowing gradient line */}
+//             <motion.div
+//               animate={{
+//                 x: ['-100%', '100%'],
+//               }}
+//               transition={{
+//                 duration: 3,
+//                 repeat: Infinity,
+//                 ease: "linear",
+//               }}
+//               className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent w-1/2"
+//             />
+            
+//             {/* Background with noise texture */}
+//             <div className="absolute inset-0 bg-white/5"></div>
+            
+//             {/* Navigation items with artistic layout */}
+//             <div className="relative flex items-center px-4 py-2">
+//               {/* Decorative left symbol */}
+//               <motion.div
+//                 animate={{ rotate: [0, 360] }}
+//                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+//                 className="hidden lg:block w-8 h-8 mr-2 text-cyan-400/30"
+//               >
+//                 <Icon icon="ph:star-four-duotone" className="w-full h-full" />
+//               </motion.div>
+
+//               {/* Nav items with always visible labels */}
+//               {navItems.map((item, index) => (
+//                 <motion.button
+//                   key={item.id}
+//                   onClick={() => scrollToSection(item.id)}
+//                   onHoverStart={() => setHoveredItem(item.id)}
+//                   onHoverEnd={() => setHoveredItem(null)}
+//                   className="relative group"
+//                   whileHover={{ scale: 1.05 }}
+//                   whileTap={{ scale: 0.95 }}
+//                   custom={index}
+//                   initial={{ opacity: 0, y: -20 }}
+//                   animate={{ opacity: 1, y: 0 }}
+//                   transition={{ delay: index * 0.05 }}
+//                 >
+//                   {/* Artistic active indicator */}
+//                   {activeSection === item.id && (
+//                     <>
+//                       <motion.div
+//                         layoutId="activeGlow"
+//                         className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-2xl blur-md"
+//                         transition={{ type: "spring", duration: 0.5 }}
+//                       />
+//                       <motion.div
+//                         layoutId="activeBorder"
+//                         className="absolute inset-0 border border-cyan-400/30 rounded-2xl"
+//                         transition={{ type: "spring", duration: 0.5 }}
+//                       />
+//                     </>
+//                   )}
+
+//                   {/* Hover effect with floating particles */}
+//                   {hoveredItem === item.id && (
+//                     <>
+//                       {[...Array(3)].map((_, i) => (
+//                         <motion.div
+//                           key={i}
+//                           initial={{ opacity: 0, y: 0, x: 0 }}
+//                           animate={{
+//                             opacity: [0, 1, 0],
+//                             y: -20,
+//                             x: (i - 1) * 10,
+//                           }}
+//                           transition={{ duration: 0.8, delay: i * 0.1 }}
+//                           className="absolute -top-2 left-1/2 w-1 h-1 bg-cyan-400 rounded-full"
+//                         />
+//                       ))}
+//                     </>
+//                   )}
+
+//                   {/* Main content container with always visible label */}
+//                   <div className="relative px-3 py-2 flex items-center gap-2">
+//                     {/* Icon with artistic animation */}
+//                     <motion.div
+//                       animate={{
+//                         rotate: hoveredItem === item.id ? [0, 5, -5, 0] : 0,
+//                       }}
+//                       transition={{ duration: 0.3 }}
+//                       className="relative"
+//                     >
+//                       <Icon 
+//                         icon={item.icon} 
+//                         className={`w-5 h-5 transition-all duration-300 ${
+//                           activeSection === item.id
+//                             ? 'text-cyan-400'
+//                             : hoveredItem === item.id
+//                               ? 'text-white'
+//                               : 'text-white/70'
+//                         }`}
+//                       />
+                      
+//                       {/* Tiny decorative dot */}
+//                       <motion.div
+//                         animate={{ scale: [1, 1.5, 1] }}
+//                         transition={{ duration: 2, repeat: Infinity }}
+//                         className={`absolute -top-1 -right-1 w-1 h-1 rounded-full ${
+//                           activeSection === item.id ? 'bg-cyan-400' : 'bg-transparent'
+//                         }`}
+//                       />
+//                     </motion.div>
+
+//                     {/* Label - Always visible */}
+//                     <motion.span
+//                       className={`text-xs font-medium tracking-wide whitespace-nowrap transition-all duration-300 ${
+//                         activeSection === item.id
+//                           ? 'text-white'
+//                           : hoveredItem === item.id
+//                             ? 'text-white/90'
+//                             : 'text-white/60'
+//                       }`}
+//                     >
+//                       {item.label}
+//                     </motion.span>
+//                   </div>
+//                 </motion.button>
+//               ))}
+
+//               {/* Decorative right symbol */}
+//               <motion.div
+//                 animate={{ rotate: [0, -360] }}
+//                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+//                 className="hidden lg:block w-8 h-8 ml-2 text-purple-400/30"
+//               >
+//                 <Icon icon="ph:sparkle-duotone" className="w-full h-full" />
+//               </motion.div>
+//             </div>
+//           </div>
+
+//           {/* Floating particles around navbar */}
+//           {[...Array(5)].map((_, i) => (
+//             <motion.div
+//               key={i}
+//               animate={{
+//                 y: [0, -10, 0],
+//                 x: [0, (i % 2 === 0 ? 5 : -5), 0],
+//                 rotate: [0, 360],
+//               }}
+//               transition={{
+//                 duration: 3 + i,
+//                 repeat: Infinity,
+//                 delay: i * 0.5,
+//               }}
+//               className="absolute -top-2 -left-2 w-1 h-1 bg-cyan-400/30 rounded-full"
+//               style={{
+//                 left: `${i * 20}%`,
+//                 top: i % 2 === 0 ? -5 : 5,
+//               }}
+//             />
+//           ))}
+//         </div>
+
+//         {/* Artistic corner decorations */}
+//         <motion.div
+//           animate={{ rotate: [0, 90, 180, 270, 360] }}
+//           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+//           className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-cyan-400/40 rounded-tl-xl"
+//         />
+//         <motion.div
+//           animate={{ rotate: [0, -90, -180, -270, -360] }}
+//           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+//           className="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-purple-400/40 rounded-tr-xl"
+//         />
+//         <motion.div
+//           animate={{ rotate: [0, -90, -180, -270, -360] }}
+//           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+//           className="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-purple-400/40 rounded-bl-xl"
+//         />
+//         <motion.div
+//           animate={{ rotate: [0, 90, 180, 270, 360] }}
+//           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+//           className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-cyan-400/40 rounded-br-xl"
+//         />
+//       </motion.div>
+
+//       {/* Spacer */}
+//       <div className="h-24 pointer-events-none" />
+//     </>
+//   );
+// }
+
+// export default Nav;
+
+
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Icon } from '@iconify/react';
+import { FiMenu, FiX } from 'react-icons/fi';
 
 function Nav() {
   const [activeSection, setActiveSection] = useState('home');
   const [hoveredItem, setHoveredItem] = useState(null);
   const [scrolled, setScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { id: 'home', label: 'Home', icon: 'ph:planet-duotone', symbol: '🌌' },
@@ -391,19 +658,20 @@ function Nav() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setActiveSection(sectionId);
+      setIsMobileMenuOpen(false);
     }
   };
 
   return (
     <>
-      {/* Floating artistic navbar */}
+      {/* Desktop Navigation - Hidden on mobile */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50"
+        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden md:block"
       >
-        {/* Main container with artistic design */}
+        {/* Desktop navbar content (same as before) */}
         <div className="relative">
           {/* Animated gradient orbs background */}
           <motion.div
@@ -419,7 +687,7 @@ function Nav() {
             className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl"
           />
           
-          {/* Main glass panel with unique shape */}
+          {/* Main glass panel */}
           <div className="relative backdrop-blur-xl rounded-[2rem] border border-white/10 overflow-hidden">
             {/* Animated flowing gradient line */}
             <motion.div
@@ -434,10 +702,9 @@ function Nav() {
               className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent w-1/2"
             />
             
-            {/* Background with noise texture */}
             <div className="absolute inset-0 bg-white/5"></div>
             
-            {/* Navigation items with artistic layout */}
+            {/* Navigation items */}
             <div className="relative flex items-center px-4 py-2">
               {/* Decorative left symbol */}
               <motion.div
@@ -448,7 +715,7 @@ function Nav() {
                 <Icon icon="ph:star-four-duotone" className="w-full h-full" />
               </motion.div>
 
-              {/* Nav items with always visible labels */}
+              {/* Nav items */}
               {navItems.map((item, index) => (
                 <motion.button
                   key={item.id}
@@ -463,7 +730,7 @@ function Nav() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
                 >
-                  {/* Artistic active indicator */}
+                  {/* Active indicators */}
                   {activeSection === item.id && (
                     <>
                       <motion.div
@@ -479,7 +746,7 @@ function Nav() {
                     </>
                   )}
 
-                  {/* Hover effect with floating particles */}
+                  {/* Hover particles */}
                   {hoveredItem === item.id && (
                     <>
                       {[...Array(3)].map((_, i) => (
@@ -498,9 +765,8 @@ function Nav() {
                     </>
                   )}
 
-                  {/* Main content container with always visible label */}
+                  {/* Content */}
                   <div className="relative px-3 py-2 flex items-center gap-2">
-                    {/* Icon with artistic animation */}
                     <motion.div
                       animate={{
                         rotate: hoveredItem === item.id ? [0, 5, -5, 0] : 0,
@@ -519,7 +785,6 @@ function Nav() {
                         }`}
                       />
                       
-                      {/* Tiny decorative dot */}
                       <motion.div
                         animate={{ scale: [1, 1.5, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
@@ -529,18 +794,15 @@ function Nav() {
                       />
                     </motion.div>
 
-                    {/* Label - Always visible */}
-                    <motion.span
-                      className={`text-xs font-medium tracking-wide whitespace-nowrap transition-all duration-300 ${
-                        activeSection === item.id
-                          ? 'text-white'
-                          : hoveredItem === item.id
-                            ? 'text-white/90'
-                            : 'text-white/60'
-                      }`}
-                    >
+                    <span className={`text-xs font-medium tracking-wide whitespace-nowrap transition-all duration-300 ${
+                      activeSection === item.id
+                        ? 'text-white'
+                        : hoveredItem === item.id
+                          ? 'text-white/90'
+                          : 'text-white/60'
+                    }`}>
                       {item.label}
-                    </motion.span>
+                    </span>
                   </div>
                 </motion.button>
               ))}
@@ -556,7 +818,7 @@ function Nav() {
             </div>
           </div>
 
-          {/* Floating particles around navbar */}
+          {/* Floating particles */}
           {[...Array(5)].map((_, i) => (
             <motion.div
               key={i}
@@ -579,7 +841,7 @@ function Nav() {
           ))}
         </div>
 
-        {/* Artistic corner decorations */}
+        {/* Corner decorations */}
         <motion.div
           animate={{ rotate: [0, 90, 180, 270, 360] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -602,8 +864,152 @@ function Nav() {
         />
       </motion.div>
 
+      {/* Mobile Navigation - Only visible on mobile */}
+      <div className="md:hidden fixed top-4 left-4 right-4 z-50">
+        {/* Mobile menu button */}
+        <motion.button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          whileTap={{ scale: 0.95 }}
+          className="relative w-12 h-12 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 flex items-center justify-center ml-auto"
+        >
+          {isMobileMenuOpen ? (
+            <FiX className="w-6 h-6 text-white" />
+          ) : (
+            <FiMenu className="w-6 h-6 text-white" />
+          )}
+          
+          {/* Animated ring around button */}
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="absolute inset-0 rounded-2xl border border-cyan-400/30"
+          />
+        </motion.button>
+
+        {/* Mobile menu dropdown */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="absolute top-16 right-0 w-56"
+            >
+              {/* Glass panel */}
+              <div className="relative">
+                {/* Animated gradient background */}
+                <motion.div
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                  className="absolute -inset-1 bg-gradient-to-r from-cyan-500/30 via-purple-500/30 to-pink-500/30 rounded-3xl blur-xl"
+                />
+                
+                {/* Main menu container */}
+                <div className="relative backdrop-blur-xl bg-white/10 rounded-3xl border border-white/10 overflow-hidden p-2">
+                  {/* Animated flowing line */}
+                  <motion.div
+                    animate={{
+                      x: ['-100%', '100%'],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent w-1/2"
+                  />
+                  
+                  {/* Menu items */}
+                  <div className="relative space-y-1">
+                    {navItems.map((item, index) => (
+                      <motion.button
+                        key={item.id}
+                        onClick={() => scrollToSection(item.id)}
+                        className={`w-full relative px-4 py-3 rounded-xl flex items-center gap-3 transition-all duration-300 ${
+                          activeSection === item.id
+                            ? 'bg-gradient-to-r from-cyan-500/20 to-purple-500/20'
+                            : 'hover:bg-white/5'
+                        }`}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        {/* Active indicator */}
+                        {activeSection === item.id && (
+                          <motion.div
+                            layoutId="mobileActive"
+                            className="absolute left-0 w-1 h-6 bg-gradient-to-b from-cyan-400 to-purple-400 rounded-full"
+                          />
+                        )}
+                        
+                        {/* Icon with glow */}
+                        <div className="relative">
+                          <Icon 
+                            icon={item.icon} 
+                            className={`w-5 h-5 ${
+                              activeSection === item.id
+                                ? 'text-cyan-400'
+                                : 'text-white/70'
+                            }`}
+                          />
+                          
+                          {/* Tiny floating particle */}
+                          <motion.div
+                            animate={{
+                              y: [0, -3, 0],
+                              opacity: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              delay: index * 0.2,
+                            }}
+                            className="absolute -top-1 -right-1 w-1 h-1 bg-cyan-400 rounded-full"
+                          />
+                        </div>
+                        
+                        {/* Label */}
+                        <span className={`flex-1 text-left text-sm font-medium ${
+                          activeSection === item.id
+                            ? 'text-white'
+                            : 'text-white/80'
+                        }`}>
+                          {item.label}
+                        </span>
+                        
+                        {/* Decorative symbol */}
+                        <span className="text-white/30 text-xs">{item.symbol}</span>
+                      </motion.button>
+                    ))}
+                  </div>
+                  
+                  {/* Decorative bottom line */}
+                  <div className="relative h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent mt-2"></div>
+                  
+                  {/* Small decorative elements */}
+                  <div className="flex justify-center gap-1 mt-2">
+                    {[...Array(3)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        animate={{ scale: [1, 1.5, 1] }}
+                        transition={{ duration: 1, repeat: Infinity, delay: i * 0.3 }}
+                        className="w-1 h-1 bg-cyan-400/30 rounded-full"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       {/* Spacer */}
-      <div className="h-24 pointer-events-none" />
+      <div className="h-20 md:h-24 pointer-events-none" />
     </>
   );
 }
