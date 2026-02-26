@@ -41,3 +41,53 @@
 .read-the-docs {
   color: #888;
 } */
+/* Theme Variables */
+:root {
+  --dark-bg: #0A0A0F;
+  --dark-text: #FFFFFF;
+  --dark-card: rgba(255, 255, 255, 0.05);
+  --dark-border: rgba(255, 255, 255, 0.1);
+  
+  --light-bg: #f5f5f5;
+  --light-text: #0A0A0F;
+  --light-card: rgba(0, 0, 0, 0.05);
+  --light-border: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode */
+.dark {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.dark .bg-white\/5 {
+  background-color: var(--dark-card);
+}
+
+.dark .border-white\/10 {
+  border-color: var(--dark-border);
+}
+
+/* Light Mode */
+.light {
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
+
+.light .bg-white\/5 {
+  background-color: var(--light-card);
+}
+
+.light .border-white\/10 {
+  border-color: var(--light-border);
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Keep the nav transition separate for better performance */
+nav, .fixed {
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
