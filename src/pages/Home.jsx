@@ -1295,10 +1295,10 @@ function Home() {
 
   // Social icons - now all on the right side
   const socialLinks = [
-    { icon: FiGithub, delay: 0, url: "https://github.com/emnet-befkadu", label: "GitHub", color: "#fff" },
-    { icon: FiLinkedin, delay: 0.1, url: "https://linkedin.com/in/emnet-befkadu", label: "LinkedIn", color: "#0A66C2" },
-    { icon: FiTwitter, delay: 0.2, url: "https://twitter.com/emnet_befkadu", label: "Twitter", color: "#1DA1F2" },
-    { icon: FiInstagram, delay: 0.3, url: "https://instagram.com/emnet_befkadu", label: "Instagram", color: "#E4405F" },
+    { icon: FiGithub, delay: 0, url: "https://github.com/Emnet19", label: "GitHub", color: "#fff" },
+    { icon: FiLinkedin, delay: 0.1, url: "https://www.linkedin.com/in/emnet-befkadu-b92bb6334/", label: "LinkedIn", color: "#0A66C2" },
+    // { icon: FiTwitter, delay: 0.2, url: "https://twitter.com/emnet_befkadu", label: "Twitter", color: "#1DA1F2" },
+    // { icon: FiInstagram, delay: 0.3, url: "https://instagram.com/emnet_befkadu", label: "Instagram", color: "#E4405F" },
     { icon: FiMail, delay: 0.4, url: "mailto:emnbef234@gmail.com", label: "Email", color: "#EA4335" },
   ];
 
