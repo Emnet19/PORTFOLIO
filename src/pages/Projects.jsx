@@ -1147,6 +1147,16 @@ function Projects() {
       categories: ["frontend"],
       tag: "FRONTEND"
     },
+     {
+      title: "Africa Restourant",
+      desc: `Africa Restourant is a modern web application that showcases the rich culinary traditions of Africa. It features a responsive design and interactive elements to enhance user engagement.`,
+      image: "/africaRestourant.png",
+      techs: [<SiReact className="text-cyan-400" />, <SiTailwindcss className="text-cyan-400" />, <SiTypescript className="text-blue-400" />],
+      source:"https://github.com/Emnet19/africaresturants",
+      link: "https://africaresturants.vercel.app/",
+      categories: ["frontend",],
+      tag: "Frontend"
+    },
     {
       title: "Random Chat App",
       desc: `Random Chat App is an interactive mobile application that connects people based on shared interests and current moods. Built with React Native and WebSocket for real-time chatting.`,
@@ -1158,6 +1168,17 @@ function Projects() {
       tag: "MOBILE & FULL STACK"
     },
     {
+      title: "RecycleX",
+      desc: `RecycleX is a sustainable web application that helps users track and manage their recycling efforts. It provides insights into recycling habits and promotes eco-friendly practices.`,
+      image: "/RecycleX.png",
+      techs: [<SiFigma className="text-purple-400" />,<Icon icon="logos:flutter" className="h-6 w-6" />],
+      source:"https://github.com/Emnet19/Recycle_X",
+      link: "https://www.figma.com/design/4nagfFboOQvOwTmFGJF95D/RecycleX?node-id=0-1&p=f&t=O81IX6jHNOA8Vv0R-0",
+      categories: ["uiux","mobile"],
+      tag: "UI/UX & MOBILE"
+    },
+    
+    {
       title: "Resource For Software Engineering Students",
       desc: `A comprehensive and well-organized platform designed to support Software Engineering students throughout their academic journey.`,
       image: "/Book1.png",
@@ -1166,6 +1187,26 @@ function Projects() {
       link: "https://github.com/Elleni-Bisrat/GROUP4_IPII_PROJECT",
       categories: ["fullstack", "frontend", "backend"], // Appears in Full Stack, Frontend, and Backend
       tag: "FULL STACK"
+    },
+     {
+      title: "Movie Recommendation",
+      desc: `Movie Recommendation is a web application that suggests movies based on user preferences and viewing history. It features a clean UI and integrates with movie databases for real-time updates.`,
+      image: "/movie.png",
+      techs: [<SiFigma className="text-purple-400" />,],
+      source: "https://www.figma.com/design/hw54ZWHV99nFTBiBCC9lTG/Movie-Recommendation?node-id=0-1&p=f&t=O81IX6jHNOA8Vv0R-0",
+      link: "https://www.figma.com/design/hw54ZWHV99nFTBiBCC9lTG/Movie-Recommendation?node-id=0-1&p=f&t=O81IX6jHNOA8Vv0R-0",
+      categories: ["uiux"],
+      tag: "UI/UX"
+    },
+    {
+      title: "chatApp UI/UX Design",
+      desc: `chatApp UI/UX Design is a comprehensive design system for a chat application. It features a modern and intuitive interface with a focus on user experience and accessibility.`,
+      image: "/chatUi.png",
+      techs: [<SiFigma className="text-purple-400" />,],
+      source: "https://www.figma.com/design/SijdtOGL0N4229qCM1ctVy/Chat-app?node-id=0-1&p=f&t=u62DMO339gBJOX40-0",
+      link: "https://www.figma.com/design/SijdtOGL0N4229qCM1ctVy/Chat-app?node-id=0-1&p=f&t=u62DMO339gBJOX40-0",
+      categories: ["uiux"],
+      tag: "UI/UX"
     },
     {
       title: "Supermarket Management System",
@@ -1196,7 +1237,8 @@ function Projects() {
       link: "https://github.com/Emnet19/ImageGallary",
       categories: ["frontend"],
       tag: "FRONTEND"
-    }
+    },
+    
   ];
 
   const filters = [
