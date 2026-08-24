@@ -93,12 +93,17 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { BsStars } from 'react-icons/bs';
 import Footer from './Footer';
 
+const CONTACT_EMAIL = 'emnbef234@gmail.com';
+const contactFormEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT;
+
 function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
+  const [submissionState, setSubmissionState] = useState('idle');
+  const [submissionMessage, setSubmissionMessage] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -107,21 +112,56 @@ function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Simple mailto link
+  const openMailClient = () => {
     const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
     const body = encodeURIComponent(
       `Name: ${formData.name}\n` +
       `Email: ${formData.email}\n\n` +
       `Message:\n${formData.message}`
     );
-    
-    window.location.href = `mailto:emnbef234@gmail.com?subject=${subject}&body=${body}`;
-    
-    // Optional: Reset form
-    setFormData({ name: '', email: '', message: '' });
+
+    window.location.assign(`mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!contactFormEndpoint) {
+      openMailClient();
+      setSubmissionState('success');
+      setSubmissionMessage('Your email app is opening. Review the message there and press Send.');
+      return;
+    }
+
+    setSubmissionState('sending');
+    setSubmissionMessage('');
+
+    try {
+      const response = await fetch(contactFormEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `Portfolio Contact from ${formData.name}`,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('The form service returned an error.');
+      }
+
+      setFormData({ name: '', email: '', message: '' });
+      setSubmissionState('success');
+      setSubmissionMessage('Message sent successfully. I’ll get back to you soon.');
+    } catch {
+      setSubmissionState('error');
+      setSubmissionMessage('Your message could not be sent. Please try again or email me directly.');
+    }
   };
 
   const contactInfo = [
@@ -133,9 +173,9 @@ function Contact() {
     },
     { 
       icon: <HiOutlineMail className="text-purple-400" />, 
-      value: 'emnbef234@gmail.com',
+      value: CONTACT_EMAIL,
       label: 'Email',
-      link: 'mailto:emnbef234@gmail.com'
+      link: `mailto:${CONTACT_EMAIL}`
     },
     { 
       icon: <FaMapMarkerAlt className="text-pink-400" />, 
@@ -306,15 +346,23 @@ function Contact() {
                 
                 <button 
                   type="submit"
+                  disabled={submissionState === 'sending'}
                   className="w-full px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-semibold text-lg shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-300 hover:scale-[1.02]"
                 >
-                  Send Message
+                  {submissionState === 'sending' ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
 
-              {/* Simple note */}
-              <p className="text-center text-gray-500 text-sm mt-6">
-                This will open your default email app
+              <p
+                className={`text-center text-sm mt-6 ${
+                  submissionState === 'error' ? 'text-red-400' : 'text-gray-500'
+                }`}
+                role="status"
+                aria-live="polite"
+              >
+                {submissionMessage || (contactFormEndpoint
+                  ? 'Your message will be sent securely from this form.'
+                  : 'This will open your default email app.')}
               </p>
             </div>
           </motion.div>

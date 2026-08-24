@@ -430,25 +430,14 @@ function About() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative flex justify-center"
           >
-            <div className="relative w-[300px] sm:w-[350px] lg:w-[400px]">
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 border-2 border-cyan-400/20 rounded-full"></div>
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 border-2 border-purple-400/20 rounded-full"></div>
-              
-              {/* Image frame */}
-              <div className="relative z-10 p-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-[2rem]">
-                <div className="relative rounded-[1.9rem] overflow-hidden bg-[#0A0A0F]">
-                  <img
-                    src="/profile.png"
-                    alt="Emnet Befkadu"
-                    className="w-full h-auto object-cover"
-                  />
-                  {/* Subtle overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/30 via-transparent to-cyan-900/30 mix-blend-overlay"></div>
-                </div>
+            <div className="relative w-[300px] sm:w-[360px] lg:w-[420px] rounded-[2.5rem] border border-cyan-200/20 bg-[#101827] p-3 sm:p-5 shadow-2xl shadow-black/30">
+              <div className="aspect-square overflow-hidden rounded-[2rem] bg-[#05070c]">
+                <img
+                  src="/profile3.png"
+                  alt="Emnet Befkadu"
+                  className="h-full w-full object-cover object-center select-none"
+                />
               </div>
-
-              {/* Location badge - MOVED OUTSIDE THE IMAGE CONTAINER */}
             </div>
           </motion.div>
 

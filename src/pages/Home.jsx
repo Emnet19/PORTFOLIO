@@ -1241,7 +1241,7 @@
 
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Nav from '../components/Nav';
 import { 
   FiGithub, 
@@ -1257,6 +1257,42 @@ import { BsStars } from 'react-icons/bs';
 function Home() {
   const [isHovering, setIsHovering] = useState(false);
   const containerRef = useRef(null);
+
+  // Typewriter effect for name
+  const fullName = 'Emnet Befkadu';
+  const [displayedName, setDisplayedName] = useState('');
+  const [isTyping, setIsTyping] = useState(true);
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    let timeout;
+    if (isTyping) {
+      if (displayedName.length < fullName.length) {
+        timeout = setTimeout(() => {
+          setDisplayedName(fullName.slice(0, displayedName.length + 1));
+        }, 90);
+      } else {
+        // Finished typing — wait 3s then erase
+        timeout = setTimeout(() => setIsTyping(false), 3000);
+      }
+    } else {
+      if (displayedName.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplayedName(displayedName.slice(0, -1));
+        }, 45);
+      } else {
+        // Finished erasing — wait 0.5s then retype
+        timeout = setTimeout(() => setIsTyping(true), 500);
+      }
+    }
+    return () => clearTimeout(timeout);
+  }, [displayedName, isTyping]);
+
+  // Blinking cursor
+  useEffect(() => {
+    const cursorInterval = setInterval(() => setShowCursor(prev => !prev), 530);
+    return () => clearInterval(cursorInterval);
+  }, []);
   
   // 3D tilt effect for the image
   const x = useMotionValue(0);
@@ -1344,7 +1380,7 @@ function Home() {
               <span className="text-sm text-gray-300">Available for work</span>
             </motion.div>
             
-            {/* Name and Title */}
+            {/* Name - Typewriter Effect */}
             <motion.div
               custom={0}
               initial="hidden"
@@ -1353,12 +1389,22 @@ function Home() {
             >
               <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
                 <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Emnet Befkadu
+                  {displayedName}
                 </span>
+                {/* Blinking cursor */}
+                <span
+                  className="inline-block w-[3px] ml-1 bg-cyan-400 align-middle"
+                  style={{
+                    height: '0.85em',
+                    opacity: showCursor ? 1 : 0,
+                    transition: 'opacity 0.1s',
+                    borderRadius: '2px',
+                  }}
+                />
               </h1>
-              
+
               <div className="text-xl lg:text-2xl text-gray-300 mt-2">
-                Full Stack Developer & UI/UX Designer
+                Full Stack Developer &amp; UI/UX Designer
               </div>
             </motion.div>
 
@@ -1442,47 +1488,30 @@ function Home() {
                       <Icon className="w-5 h-5 text-gray-300 group-hover:text-cyan-400 transition-colors" />
                     </div>
                     
-                    {/* Tooltip */}
-                    <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-black/50 backdrop-blur-sm text-xs text-white rounded-lg border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+                    {/* Tooltip - Appears on the right side so it never covers the image */}
+                    <span className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-black/80 backdrop-blur-md text-xs text-white rounded-lg border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none z-50 shadow-lg">
                       {label}
                     </span>
                   </motion.a>
                 ))}
               </div>
 
-              {/* Image Container with 3D tilt */}
+              {/* Framed portrait */}
               <motion.div
                 style={{
                   rotateX: rotateX,
                   rotateY: rotateY,
                   transformStyle: "preserve-3d",
                 }}
-                className="relative w-[280px] sm:w-[320px] lg:w-[380px] order-1"
+                className="relative w-[300px] sm:w-[360px] md:w-[400px] lg:w-[440px] xl:w-[480px] order-1 rounded-[2.5rem] border border-cyan-200/20 bg-[#101827] p-3 sm:p-5 shadow-2xl shadow-black/30"
               >
-                {/* Background glow */}
-                <motion.div
-                  className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 blur-3xl opacity-30"
-                  animate={{ scale: isHovering ? 1.2 : 1 }}
-                  transition={{ duration: 0.5 }}
-                />
-                
-                {/* Image Frame */}
-                <div className="relative z-10 p-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-[2rem]">
-                  <div className="relative rounded-[1.9rem] overflow-hidden bg-[#0A0A0F]">
-                    <img
-                      src="/profile.png"
-                      alt="Emnet Befkadu"
-                      className="w-full h-auto object-cover"
-                    />
-                    
-                    {/* Subtle overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-purple-900/30 via-transparent to-cyan-900/30 mix-blend-overlay"></div>
-                  </div>
+                <div className="aspect-square overflow-hidden rounded-[2rem] bg-[#05070c]">
+                  <img
+                    src="/profile3.png"
+                    alt="Emnet Befkadu"
+                    className="h-full w-full object-cover object-center select-none"
+                  />
                 </div>
-
-                {/* Simple decorative elements */}
-                <div className="absolute -top-4 -right-4 w-16 h-16 border border-cyan-400/20 rounded-full"></div>
-                <div className="absolute -bottom-4 -left-4 w-24 h-24 border border-purple-400/20 rounded-full"></div>
               </motion.div>
             </motion.div>
           </div>
